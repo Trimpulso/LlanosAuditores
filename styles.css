@@ -1,17 +1,19 @@
 :root {
-    --primary-color: #1e3a5f;
-    --secondary-color: #4a90a4;
-    --accent-color: #f39c12;
+    --primary-color: #ff7300;
+    --secondary-color: #ffa412;
+    --accent-color: #e27d44;
     --success-color: #27ae60;
     --light-gray: #f8f9fa;
     --dark-gray: #2c3e50;
+    --purple-primary: #6a2793;
 }
 
 /* General Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     line-height: 1.6;
     color: #333;
+    font-optical-sizing: auto;
 }
 
 .text-primary {
@@ -23,13 +25,15 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background: linear-gradient(270deg, #FFA412 0%, #E27D44 100%);
+    border: none;
+    color: white;
+    transition: 0.5s;
 }
 
 .btn-primary:hover {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
+    background: #FFA412;
+    color: white;
 }
 
 .btn-warning {
@@ -42,6 +46,17 @@ body {
     background-color: #e67e22;
     border-color: #e67e22;
     color: white;
+}
+
+/* Botones específicos estilo ProData */
+.bg-gradiente-naranjo {
+    background: linear-gradient(270deg, #FFA412 0%, #E27D44 100%) !important;
+    border: none !important;
+    transition: 0.5s;
+}
+
+.bg-gradiente-naranjo:hover {
+    background: #FFA412 !important;
 }
 
 /* Navigation */
@@ -131,8 +146,17 @@ body {
 .service-number {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--accent-color);
     margin-bottom: 1rem;
+}
+
+.service-number.tipografia--gradiente::after {
+    color: var(--primary-color);
+}
+
+.service-icon img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
 }
 
 .service-card::before {
@@ -275,6 +299,66 @@ blockquote {
     }
 }
 
+/* Modelo Section con fondo rotativo */
+.modelo-section::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: 90%;
+    height: 70%;
+    background-image: url('https://via.placeholder.com/600x600/f0f0f0/cccccc?text=ROTATING+BG');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 0;
+    opacity: 0.1;
+    -webkit-animation: spin 120s linear infinite;
+    -moz-animation: spin 120s linear infinite;
+    animation: spin 120s linear infinite;
+}
+
+@-webkit-keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+    } 
+}
+
+@-moz-keyframes spin { 
+    100% { 
+        -moz-transform: rotate(360deg); 
+    } 
+}
+
+@keyframes spin { 
+    100% { 
+        -webkit-transform: rotate(360deg); 
+        transform: rotate(360deg); 
+    } 
+}
+
+.modelo-section .container {
+    position: relative;
+    z-index: 10;
+}
+
+/* Tipografía como ProData */
+.tipografia-hero {
+    font-size: clamp(2.2rem, 4.117vw, 3rem);
+    line-height: calc(2.2rem * 1.6);
+}
+
+.tipografia--h2 {
+    font-size: clamp(2.25rem, 3.431vw, 2.5rem);
+    line-height: calc(2.25rem * 1.6);
+}
+
+.tipografia--h3 {
+    font-size: clamp(2rem, 3.087vw, 2.25rem);
+    line-height: calc(2rem * 1.6);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-section h1 {
@@ -295,6 +379,12 @@ blockquote {
         width: 60px;
         height: 60px;
         font-size: 1.2rem;
+    }
+
+    .modelo-section::before {
+        top: 25%;
+        width: 90%;
+        height: 50%;
     }
 }
 
@@ -320,6 +410,22 @@ blockquote {
 /* Utility Classes */
 .bg-gradient-primary {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+.bg-gradiente-naranjo {
+    background: linear-gradient(270deg, #FFA412 0%, #E27D44 100%);
+    transition: 0.5s;
+}
+
+.bg-gradiente-naranjo:hover {
+    background: #FFA412;
+}
+
+.tipografia--gradiente {
+    background: linear-gradient(270deg, #FFA412 0%, #E27D44 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .text-warning {

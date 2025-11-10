@@ -6,6 +6,9 @@
     <title>Llanos Auditores - Servicios de Auditoría Profesional</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -40,7 +43,7 @@
                         <a class="nav-link" href="#blog">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary ms-2" href="#contacto">Agenda una Consulta</a>
+                        <a class="btn bg-gradiente-naranjo text-white ms-2" href="#contacto">Agenda una Consulta</a>
                     </li>
                 </ul>
             </div>
@@ -52,19 +55,16 @@
         <div class="container">
             <div class="row align-items-center min-vh-100">
                 <div class="col-lg-6">
-                    <h1 class="display-4 fw-bold mb-4">
+                    <h1 class="display-4 fw-bold mb-4 tipografia-hero">
                         Auditoría, consultoría y asesoría contable 
-                        <span class="text-warning">automatizadas en un solo lugar</span>
+                        <br><span class="tipografia--gradiente">automatizadas en un solo lugar</span>
                     </h1>
                     <p class="lead mb-4">
-                        Más de 15 años liderando el mercado de servicios de auditoría. 
-                        Vasta experiencia en auditoría externa, interna, consultoría tributaria 
-                        y asesoría contable integral.
+                        Más de <strong>15 años liderando el mercado de auditoría</strong>. 
+                        Vasta experiencia en servicios como <strong>auditoría externa, interna, consultoría tributaria 
+                        y asesoría contable integral</strong>. Puedes acceder a nuestros servicios digitales y reportes en línea 24/7
                     </p>
-                    <div class="mb-4">
-                        <p>Puedes acceder a nuestros servicios digitales y reportes en línea 24/7</p>
-                    </div>
-                    <a href="#contacto" class="btn btn-warning btn-lg">
+                    <a href="#contacto" class="btn btn-lg bg-gradiente-naranjo text-white">
                         <i class="fas fa-calendar-alt me-2"></i>
                         Agenda una Consulta
                     </a>
@@ -103,12 +103,18 @@
     </section>
 
     <!-- Our Model -->
-    <section class="py-5" id="modelo">
+    <section class="py-5 modelo-section position-relative overflow-hidden" id="modelo">
         <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-3">
+                    <img src="assets/logo.svg" alt="Llanos Auditores" style="width: 40px; vertical-align: center;" class="me-2">
+                    Nuestro modelo
+                </h2>
+                <h3 class="text-primary">Mayor foco en actividades que generen valor al core-business</h3>
+            </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <h2 class="fw-bold mb-4">Nuestro modelo</h2>
-                    <h3 class="text-primary mb-4">Mayor foco en actividades que generen valor al core-business</h3>
+                    <h4 class="fw-bold mb-4">Nuestro modelo</h4>
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <div class="text-center">
@@ -174,7 +180,7 @@
                     </div>
                     <div class="mt-4 p-4 bg-light rounded">
                         <h5>Nosotros</h5>
-                        <p class="mb-3">Somos una empresa con más de 15 años especializados en servicios de auditoría, consultoría contable y asesoría tributaria.</p>
+                        <p class="mb-3">Somos una empresa <span class="tipografia--gradiente"><strong>con más de 15 años especializados</strong></span> en servicios de auditoría, consultoría contable y asesoría tributaria.</p>
                         <a href="#nosotros" class="btn btn-outline-primary">Conócenos</a>
                     </div>
                 </div>
@@ -191,35 +197,43 @@
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="service-card h-100 p-4 bg-white rounded shadow-sm">
-                        <div class="service-number">1.</div>
-                        <h4 class="mb-3">Auditoría Externa</h4>
-                        <p>Garantiza que tu empresa cumple con los más altos estándares de transparencia y control financiero. Auditorías independientes con metodologías internacionales.</p>
-                        <a href="#" class="btn btn-outline-primary">Ver más</a>
+                    <div class="service-card h-100 p-4 bg-white rounded shadow-sm text-center">
+                        <div class="service-icon mb-3">
+                            <img src="https://via.placeholder.com/80x80/ff7300/ffffff?text=1" alt="Auditoría Externa" class="img-fluid">
+                        </div>
+                        <div class="service-number tipografia--gradiente">1.</div>
+                        <h5 class="mb-3">Auditoría Externa</h5>
+                        <p class="text-muted">Garantiza que tu empresa cumple con los más altos estándares de transparencia y control financiero. Auditorías independientes con metodologías internacionales.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="service-card h-100 p-4 bg-white rounded shadow-sm">
-                        <div class="service-number">2.</div>
-                        <h4 class="mb-3">Auditoría Interna</h4>
-                        <p>Evaluación continua de controles internos, identificación de riesgos operacionales y mejora de procesos para optimizar la gestión empresarial.</p>
-                        <a href="#" class="btn btn-outline-primary">Ver más</a>
+                    <div class="service-card h-100 p-4 bg-white rounded shadow-sm text-center">
+                        <div class="service-icon mb-3">
+                            <img src="https://via.placeholder.com/80x80/ff7300/ffffff?text=2" alt="Auditoría Interna" class="img-fluid">
+                        </div>
+                        <div class="service-number tipografia--gradiente">2.</div>
+                        <h5 class="mb-3">Auditoría Interna</h5>
+                        <p class="text-muted">Evaluación continua de controles internos, identificación de riesgos operacionales y mejora de procesos para optimizar la gestión empresarial.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="service-card h-100 p-4 bg-white rounded shadow-sm">
-                        <div class="service-number">3.</div>
-                        <h4 class="mb-3">Consultoría Tributaria</h4>
-                        <p>Asesoría especializada en planificación tributaria, cumplimiento normativo y optimización de la carga fiscal de tu empresa.</p>
-                        <a href="#" class="btn btn-outline-primary">Ver más</a>
+                    <div class="service-card h-100 p-4 bg-white rounded shadow-sm text-center">
+                        <div class="service-icon mb-3">
+                            <img src="https://via.placeholder.com/80x80/ff7300/ffffff?text=3" alt="Consultoría Tributaria" class="img-fluid">
+                        </div>
+                        <div class="service-number tipografia--gradiente">3.</div>
+                        <h5 class="mb-3">Consultoría Tributaria</h5>
+                        <p class="text-muted">Asesoría especializada en planificación tributaria, cumplimiento normativo y optimización de la carga fiscal de tu empresa.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="service-card h-100 p-4 bg-white rounded shadow-sm">
-                        <div class="service-number">4.</div>
-                        <h4 class="mb-3">Asesoría Contable</h4>
-                        <p>Servicios integrales de contabilidad, preparación de estados financieros y análisis de información para la toma de decisiones estratégicas.</p>
-                        <a href="#" class="btn btn-outline-primary">Ver más</a>
+                    <div class="service-card h-100 p-4 bg-white rounded shadow-sm text-center">
+                        <div class="service-icon mb-3">
+                            <img src="https://via.placeholder.com/80x80/ff7300/ffffff?text=4" alt="Asesoría Contable" class="img-fluid">
+                        </div>
+                        <div class="service-number tipografia--gradiente">4.</div>
+                        <h5 class="mb-3">Asesoría Contable</h5>
+                        <p class="text-muted">Servicios integrales de contabilidad, preparación de estados financieros y análisis de información para la toma de decisiones estratégicas.</p>
                     </div>
                 </div>
             </div>

@@ -32,10 +32,6 @@ Esta carpeta contiene todas las imágenes y recursos necesarios para el sitio we
 - `client-logo-5.png` - Logo empresa cliente 5
 - `client-logo-6.png` - Logo empresa cliente 6
 
-### Testimonials
-- `testimonial-1.png` - Foto cliente testimonial 1
-- `testimonial-2.png` - Foto cliente testimonial 2
-
 ## Especificaciones Técnicas
 
 ### Formatos Recomendados
@@ -49,7 +45,6 @@ Esta carpeta contiene todas las imágenes y recursos necesarios para el sitio we
 - **Hero image**: 800x600px
 - **Service icons**: 100x100px
 - **Client logos**: 200x100px (formato horizontal recomendado)
-- **Testimonial photos**: 150x150px (circular)
 
 ### Optimización
 - Comprimir imágenes antes de usar

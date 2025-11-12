@@ -5,25 +5,28 @@
 
 /* CSS Variables */
 :root {
-    --primary-color: #051926;
-    --primary-night-blue: #051926;
-    --secondary-color: #A0C8F3;
-    --secondary-celest-blue: #A0C8F3;
-    --secondary-electric-blue: #3EB9FF;
-    --secondary-dark-blue: #051926;
-    --accent-color: #3EB9FF;
+    /* New Color Palette */
+    --primary-navy-blue: #1B2845;
+    --primary-white: #FFFFFF;
+    --secondary-cobalt-blue: #3A5BC7;
+    --secondary-electric-blue: #4D9BE6;
+    --secondary-dark-blue: #0F1821;
+    
+    /* Compatibility aliases */
+    --primary-color: #3A5BC7;
+    --secondary-color: #4D9BE6;
+    --accent-color: #4D9BE6;
     --success-color: #10b981;
-    --dark-color: #051926;
+    --dark-color: #1B2845;
     --light-color: #f8fafc;
     --white: #FFFFFF;
-    --support-ice-white: #E8EBF1;
-    --text-dark: #051926;
+    --text-dark: #1B2845;
     --text-light: #6b7280;
     --text-grafito: #4a4a4a;
     --border-light: #e5e7eb;
     
-    --gradient-primary: linear-gradient(135deg, #051926 0%, #3EB9FF 100%);
-    --gradient-accent: linear-gradient(135deg, #3EB9FF 0%, #A0C8F3 100%);  
+    --gradient-primary: linear-gradient(135deg, #3A5BC7 0%, #4D9BE6 100%);
+    --gradient-accent: linear-gradient(135deg, #1B2845 0%, #0F1821 100%);  
     --font-primary: 'Montserrat', sans-serif;
     --font-weight-light: 300;
     --font-weight-regular: 400;

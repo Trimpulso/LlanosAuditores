@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Formularios - Llanos Auditores</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .form-handler-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 0;
+            margin-top: 100px;
+        }
+        .form-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+        .form-title {
+            color: #1e40af;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        .alert-info-custom {
+            background: #e3f2fd;
+            border-left: 4px solid #1e40af;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+        .alert-info-custom .alert-title {
+            font-weight: 600;
+            color: #1e40af;
+            margin-bottom: 5px;
+        }
+        .alert-info-custom p {
+            color: #555;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .form-control, .form-select {
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #1e40af;
+            box-shadow: 0 0 0 0.2rem rgba(30, 64, 175, 0.25);
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .btn-submit:hover {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.3);
+        }
+        .success-message {
+            display: none;
+            padding: 15px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            display: none;
+            padding: 15px;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header-fixed">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/LOGO LLANOS AUDITORES ACTUALIZADO_02.png" alt="Llanos Auditores" class="logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#inicio">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#servicios">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html#nosotros">Nosotros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="form-handler.html">Cotización</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Form Handler Section -->
+    <section class="form-handler-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="form-card">
+                        <h1 class="form-title">
+                            <i class="fas fa-file-invoice-dollar"></i> Solicitar Cotización
+                        </h1>
+                        <p class="form-subtitle">Completa el formulario y nos pondremos en contacto contigo</p>
+                        
+                        <div class="alert-info-custom">
+                            <div class="alert-title">
+                                <i class="fas fa-info-circle"></i> Información importante
+                            </div>
+                            <p>Tus datos serán enviados a: <strong>job.llanos@gmail.com</strong>. Nos comprometemos a responder en un plazo máximo de 24 horas.</p>
+                        </div>
+
+                        <div class="success-message" id="successMessage">
+                            <i class="fas fa-check-circle"></i> ¡Formulario enviado correctamente! Pronto nos pondremos en contacto contigo.
+                        </div>
+
+                        <div class="error-message" id="errorMessage">
+                            <i class="fas fa-exclamation-circle"></i> <span id="errorText">Hubo un error al enviar el formulario. Por favor, intenta de nuevo.</span>
+                        </div>
+
+                        <form id="cotizacionForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nombre" class="form-label">Nombre *</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="telefono" class="form-label">Teléfono *</label>
+                                    <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+56 9 1234 5678" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="empresa" class="form-label">Nombre de la Empresa *</label>
+                                    <input type="text" class="form-control" id="empresa" name="empresa" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="rut" class="form-label">RUT de la Empresa</label>
+                                <input type="text" class="form-control" id="rut" name="rut" placeholder="XX.XXX.XXX-X">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="giro" class="form-label">Giro de la Empresa</label>
+                                    <input type="text" class="form-control" id="giro" name="giro" placeholder="Ej: Retail, Servicios, etc.">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="plan" class="form-label">Plan de Interés *</label>
+                                    <select class="form-select" id="plan" name="plan" required>
+                                        <option value="">-- Selecciona un plan --</option>
+                                        <option value="emprende">Plan Emprende</option>
+                                        <option value="microempresa">Plan Microempresa</option>
+                                        <option value="pyme">Plan Pyme</option>
+                                        <option value="empresa">Plan Empresa</option>
+                                        <option value="personalizado">Plan Personalizado</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="empleados" class="form-label">Cantidad de Empleados</label>
+                                    <input type="number" class="form-control" id="empleados" name="empleados" min="0">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="servicio" class="form-label">Servicio Principal *</label>
+                                    <select class="form-select" id="servicio" name="servicio" required>
+                                        <option value="">-- Selecciona un servicio --</option>
+                                        <option value="contable">Asesoría Contable</option>
+                                        <option value="tributaria">Asesoría Tributaria</option>
+                                        <option value="remuneraciones">Asesoría en Remuneraciones</option>
+                                        <option value="auditoria">Auditoría Estados Financieros</option>
+                                        <option value="otros">Otros Servicios</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="mensaje" class="form-label">Mensaje / Consultas Adicionales</label>
+                                <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Cuéntanos sobre tu consulta específica o requisitos especiales..."></textarea>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="terminos" name="terminos" required>
+                                <label class="form-check-label" for="terminos">
+                                    Acepto la política de privacidad y autorizo el envío de información *
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-submit btn-primary w-100">
+                                <i class="fas fa-paper-plane"></i> Enviar Cotización
+                            </button>
+                        </form>
+
+                        <div class="mt-4 text-center text-muted">
+                            <small>
+                                <i class="fas fa-lock"></i> Tus datos están protegidos y seguros
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="assets/LOGO LLANOS AUDITORES ACTUALIZADO_02.png" alt="Llanos Auditores" class="footer-logo">
+                </div>
+                <div class="col-md-6">
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center">
+                <p>&copy; 2024 Llanos Auditores. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- EmailJS Library -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
+    
+    <!-- Form Handler Script -->
+    <script src="form-handler.js"></script>
+</body>
+</html>

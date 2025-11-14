@@ -15,10 +15,10 @@
 // 4. Reemplazar "YOUR_PUBLIC_KEY" con tu Public Key
 
 const EMAIL_CONFIG = {
-    serviceId: "service_llanos",           // Cambia esto con tu Service ID
-    templateId: "template_cotizacion",     // Cambia esto con tu Template ID
-    publicKey: "0rq3Zh-UPx-lMhF3a",      // Cambia esto con tu Public Key
-    recipientEmail: "job.llanos@gmail.com"  // Email destino
+    serviceId: "service_llanos",           // Tu Service ID
+    templateId: "template_cotizacion",     // Tu Template ID
+    publicKey: "Uj_crn3Kt1Gl6rP",         // Tu Public Key
+    recipientEmail: "job.llanos@gmail.com" // Email destino
 };
 
 // ==========================================

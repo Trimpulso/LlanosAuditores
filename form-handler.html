@@ -155,72 +155,41 @@
                         </div>
 
                         <form id="cotizacionForm">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="nombre" class="form-label">Nombre *</label>
-                                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">Email *</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="telefono" class="form-label">Teléfono *</label>
-                                    <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+56 9 1234 5678" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="empresa" class="form-label">Nombre de la Empresa *</label>
-                                    <input type="text" class="form-control" id="empresa" name="empresa" required>
-                                </div>
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre *</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="rut" class="form-label">RUT de la Empresa</label>
-                                <input type="text" class="form-control" id="rut" name="rut" placeholder="XX.XXX.XXX-X">
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="giro" class="form-label">Giro de la Empresa</label>
-                                    <input type="text" class="form-control" id="giro" name="giro" placeholder="Ej: Retail, Servicios, etc.">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="plan" class="form-label">Plan de Interés *</label>
-                                    <select class="form-select" id="plan" name="plan" required>
-                                        <option value="">-- Selecciona un plan --</option>
-                                        <option value="emprende">Plan Emprende</option>
-                                        <option value="microempresa">Plan Microempresa</option>
-                                        <option value="pyme">Plan Pyme</option>
-                                        <option value="empresa">Plan Empresa</option>
-                                        <option value="personalizado">Plan Personalizado</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="empleados" class="form-label">Cantidad de Empleados</label>
-                                    <input type="number" class="form-control" id="empleados" name="empleados" min="0">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="servicio" class="form-label">Servicio Principal *</label>
-                                    <select class="form-select" id="servicio" name="servicio" required>
-                                        <option value="">-- Selecciona un servicio --</option>
-                                        <option value="contable">Asesoría Contable</option>
-                                        <option value="tributaria">Asesoría Tributaria</option>
-                                        <option value="remuneraciones">Asesoría en Remuneraciones</option>
-                                        <option value="auditoria">Auditoría Estados Financieros</option>
-                                        <option value="otros">Otros Servicios</option>
-                                    </select>
-                                </div>
+                                <label for="email" class="form-label">Email *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="mensaje" class="form-label">Mensaje / Consultas Adicionales</label>
-                                <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Cuéntanos sobre tu consulta específica o requisitos especiales..."></textarea>
+                                <label for="telefono" class="form-label">Número de teléfono *</label>
+                                <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="+56 9 1234 5678" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="empresa" class="form-label">Nombre de la empresa *</label>
+                                <input type="text" class="form-control" id="empresa" name="empresa" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="plan" class="form-label">¿Qué plan desea cotizar? *</label>
+                                <select class="form-select" id="plan" name="plan" required>
+                                    <option value="">-- Selecciona un plan --</option>
+                                    <option value="emprende">Plan Emprende</option>
+                                    <option value="microempresa">Plan Microempresa</option>
+                                    <option value="pyme">Plan Pyme</option>
+                                    <option value="empresa">Plan Empresa</option>
+                                    <option value="personalizado">Plan Personalizado</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="mensaje" class="form-label">Mensaje</label>
+                                <textarea class="form-control" id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
                             </div>
 
                             <div class="mb-3 form-check">
@@ -231,7 +200,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-submit btn-primary w-100">
-                                <i class="fas fa-paper-plane"></i> Enviar Cotización
+                                <i class="fas fa-paper-plane"></i> ENVIAR COTIZACIÓN
                             </button>
                         </form>
 

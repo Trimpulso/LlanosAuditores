@@ -54,11 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
             email: document.getElementById('email').value,
             telefono: document.getElementById('telefono').value,
             empresa: document.getElementById('empresa').value,
-            rut: document.getElementById('rut').value || 'No especificado',
-            giro: document.getElementById('giro').value || 'No especificado',
             plan: document.getElementById('plan').value,
-            empleados: document.getElementById('empleados').value || 'No especificado',
-            servicio: document.getElementById('servicio').value,
             mensaje: document.getElementById('mensaje').value || 'Sin mensaje adicional',
             fechaEnvio: new Date().toLocaleDateString('es-CL'),
             horaEnvio: new Date().toLocaleTimeString('es-CL')
@@ -76,17 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
             cliente_email: formData.email,
             cliente_telefono: formData.telefono,
             empresa_nombre: formData.empresa,
-            empresa_rut: formData.rut,
-            empresa_giro: formData.giro,
             plan_interes: formData.plan,
-            cantidad_empleados: formData.empleados,
-            servicio_principal: formData.servicio,
             mensaje_cliente: formData.mensaje,
             fecha_envio: formData.fechaEnvio,
-            hora_envio: formData.horaEnvio,
-            
-            // Mensaje formateado para el email
-            mensaje_html: formatearMensajeHtml(formData)
+            hora_envio: formData.horaEnvio
         };
         
         // Enviar email usando EmailJS
@@ -158,36 +147,16 @@ function formatearMensajeHtml(data) {
         'personalizado': 'Plan Personalizado'
     };
     
-    const servicioLabels = {
-        'contable': 'Asesoría Contable',
-        'tributaria': 'Asesoría Tributaria',
-        'remuneraciones': 'Asesoría en Remuneraciones',
-        'auditoria': 'Auditoría Estados Financieros',
-        'otros': 'Otros Servicios'
-    };
-    
     return `
         <h3>Nueva Solicitud de Cotización</h3>
-        <h4>Información del Cliente</h4>
         <p><strong>Nombre:</strong> ${escapeHtml(data.nombre)}</p>
         <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
         <p><strong>Teléfono:</strong> ${escapeHtml(data.telefono)}</p>
-        
-        <h4>Información de la Empresa</h4>
-        <p><strong>Nombre de la Empresa:</strong> ${escapeHtml(data.empresa)}</p>
-        <p><strong>RUT:</strong> ${escapeHtml(data.rut)}</p>
-        <p><strong>Giro:</strong> ${escapeHtml(data.giro)}</p>
-        <p><strong>Cantidad de Empleados:</strong> ${escapeHtml(data.empleados)}</p>
-        
-        <h4>Solicitud</h4>
-        <p><strong>Plan de Interés:</strong> ${planLabels[data.plan] || data.plan}</p>
-        <p><strong>Servicio Principal:</strong> ${servicioLabels[data.servicio] || data.servicio}</p>
-        
-        <h4>Mensaje Adicional</h4>
-        <p>${escapeHtml(data.mensaje)}</p>
-        
+        <p><strong>Empresa:</strong> ${escapeHtml(data.empresa)}</p>
+        <p><strong>Plan:</strong> ${planLabels[data.plan] || data.plan}</p>
+        <p><strong>Mensaje:</strong> ${escapeHtml(data.mensaje)}</p>
         <hr>
-        <p><small><strong>Fecha de Envío:</strong> ${data.fechaEnvio} a las ${data.horaEnvio}</small></p>
+        <p><small><strong>Fecha:</strong> ${data.fechaEnvio} a las ${data.horaEnvio}</small></p>
     `;
 }
 

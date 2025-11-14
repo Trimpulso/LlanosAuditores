@@ -16,7 +16,7 @@
 
 const EMAIL_CONFIG = {
     serviceId: "service_qin2chu",          // Tu Service ID de Gmail
-    templateId: "template_cotizacion",     // Tu Template ID
+    templateId: "template_kx1lyc",         // Usar la plantilla existente
     publicKey: "Uj_crn3Kt1Gl6rP",         // Tu Public Key
     recipientEmail: "job.llanos@gmail.com" // Email destino
 };

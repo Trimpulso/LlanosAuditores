@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             from_name: formData.nombre,
             subject: `Nueva Cotización: ${formData.empresa}`,
             
-            // Variables personalizadas para tu plantilla
+            // Solo los datos básicos del formulario
             cliente_nombre: formData.nombre,
             cliente_email: formData.email,
             cliente_telefono: formData.telefono,

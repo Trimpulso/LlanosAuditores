@@ -1,6 +1,11 @@
 // LLANOS AUDITORES - JAVASCRIPT FUNCTIONALITY
 // Based on Contawork interactive features
 
+// Inicializar EmailJS al cargar el script
+if (typeof emailjs !== 'undefined') {
+    emailjs.init("Uj_crn3Kt1Gl6rP");
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize all functionality
@@ -139,9 +144,6 @@ function initContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
     
-    // Inicializar EmailJS
-    emailjs.init("Uj_crn3Kt1Gl6rP");
-    
     contactForm.addEventListener('submit', handleFormSubmission);
     
     // Form validation
@@ -248,10 +250,22 @@ function initContactForm() {
             mensaje: formValues.mensaje || "Sin mensaje"
         };
         
+        console.log('📧 Enviando email con parámetros:', templateParams);
+        
+        // Verificar que EmailJS esté disponible
+        if (typeof emailjs === 'undefined') {
+            console.error('❌ EmailJS no está disponible');
+            showNotification('Error: EmailJS no está disponible. Por favor intenta de nuevo.', 'error');
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+            submitButton.classList.remove('loading');
+            return;
+        }
+        
         // Enviar email con EmailJS
         emailjs.send("service_qin2chu", "template_cotizacion", templateParams)
             .then(function(response) {
-                console.log('✅ Email enviado:', response);
+                console.log('✅ Email enviado correctamente:', response);
                 
                 // Reset form
                 contactForm.reset();
@@ -273,7 +287,11 @@ function initContactForm() {
                 submitButton.classList.remove('loading');
                 
                 // Show error message
-                showNotification('Hubo un error al enviar tu cotización. Por favor intenta de nuevo.', 'error');
+                let errorMsg = 'Hubo un error al enviar tu cotización. Por favor intenta de nuevo.';
+                if (error.status === 400) {
+                    errorMsg = 'Error de configuración. Contacta al administrador.';
+                }
+                showNotification(errorMsg, 'error');
             });
     }
 }

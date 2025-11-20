@@ -139,6 +139,9 @@ function initContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
     
+    // Inicializar EmailJS
+    emailjs.init("Uj_crn3Kt1Gl6rP");
+    
     contactForm.addEventListener('submit', handleFormSubmission);
     
     // Form validation
@@ -232,21 +235,49 @@ function initContactForm() {
         submitButton.disabled = true;
         submitButton.classList.add('loading');
         
-        // Simulate form submission (replace with actual form handling)
-        setTimeout(() => {
-            // Reset form
-            contactForm.reset();
-            
-            // Reset button
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-            submitButton.classList.remove('loading');
-            
-            // Show success message
-            showNotification('¡Mensaje enviado correctamente! Nos contactaremos contigo pronto.', 'success');
-            
-            console.log('Form submitted with data:', formValues);
-        }, 2000);
+        // Preparar datos para EmailJS
+        const templateParams = {
+            to_email: "job.llanos@gmail.com",
+            from_email: formValues.email,
+            from_name: formValues.nombre,
+            subject: `Nueva Cotización: ${formValues.empresa}`,
+            cliente_nombre: formValues.nombre,
+            cliente_email: formValues.email,
+            cliente_telefono: formValues.telefono,
+            empresa_nombre: formValues.empresa,
+            plan_interes: formValues.plan,
+            mensaje_cliente: formValues.mensaje || "Sin mensaje adicional",
+            fecha_envio: new Date().toLocaleDateString('es-CL'),
+            hora_envio: new Date().toLocaleTimeString('es-CL')
+        };
+        
+        // Enviar email con EmailJS
+        emailjs.send("service_qin2chu", "template_kx1lyc", templateParams)
+            .then(function(response) {
+                console.log('✅ Email enviado:', response);
+                
+                // Reset form
+                contactForm.reset();
+                
+                // Reset button
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                submitButton.classList.remove('loading');
+                
+                // Show success message
+                showNotification('¡Cotización enviada correctamente! Nos contactaremos contigo pronto.', 'success');
+                
+            }, function(error) {
+                console.error('❌ Error al enviar:', error);
+                
+                // Reset button
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                submitButton.classList.remove('loading');
+                
+                // Show error message
+                showNotification('Hubo un error al enviar tu cotización. Por favor intenta de nuevo.', 'error');
+            });
     }
 }
 

@@ -238,21 +238,18 @@ function initContactForm() {
         // Preparar datos para EmailJS
         const templateParams = {
             to_email: "job.llanos@gmail.com",
-            from_email: formValues.email,
             from_name: formValues.nombre,
-            subject: `Nueva Cotización: ${formValues.empresa}`,
-            cliente_nombre: formValues.nombre,
-            cliente_email: formValues.email,
-            cliente_telefono: formValues.telefono,
-            empresa_nombre: formValues.empresa,
-            plan_interes: formValues.plan,
-            mensaje_cliente: formValues.mensaje || "Sin mensaje adicional",
-            fecha_envio: new Date().toLocaleDateString('es-CL'),
-            hora_envio: new Date().toLocaleTimeString('es-CL')
+            from_email: formValues.email,
+            nombre: formValues.nombre,
+            email: formValues.email,
+            telefono: formValues.telefono,
+            empresa: formValues.empresa,
+            plan: formValues.plan,
+            mensaje: formValues.mensaje || "Sin mensaje"
         };
         
         // Enviar email con EmailJS
-        emailjs.send("service_qin2chu", "template_kx1lyc", templateParams)
+        emailjs.send("service_qin2chu", "template_cotizacion", templateParams)
             .then(function(response) {
                 console.log('✅ Email enviado:', response);
                 

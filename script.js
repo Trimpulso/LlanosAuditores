@@ -1,12 +1,15 @@
 // LLANOS AUDITORES - JAVASCRIPT FUNCTIONALITY
 // Based on Contawork interactive features
 
-// Inicializar EmailJS al cargar el script
-if (typeof emailjs !== 'undefined') {
-    emailjs.init("Uj_crn3Kt1Gl6rP");
-}
-
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // Inicializar EmailJS (después de que el DOM esté listo)
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init("Uj_crn3Kt1Gl6rP");
+        console.log('✅ EmailJS inicializado correctamente');
+    } else {
+        console.warn('⚠️ EmailJS no está disponible');
+    }
     
     // Initialize all functionality
     initNavigation();

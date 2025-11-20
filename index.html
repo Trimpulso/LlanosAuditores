@@ -358,7 +358,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="contact-form">
-                        <form id="contactForm">
+                        <form action="https://formsubmit.co/job.llanos@gmail.com" method="POST">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" required>
@@ -389,6 +389,9 @@
                                 <label for="mensaje" class="form-label">Mensaje</label>
                                 <textarea class="form-control" id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
                             </div>
+                            <!-- FormSubmit hidden fields -->
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_next" value="https://trimpulso.github.io/LlanosAuditores/?success=true">
                             <button type="submit" class="btn btn-primary w-100">Solicitar Cotización</button>
                         </form>
                     </div>
@@ -495,9 +498,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- EmailJS Library - Must load before custom script -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/index.min.js"></script>
     
     <!-- Custom JS -->
     <script src="script.js"></script>

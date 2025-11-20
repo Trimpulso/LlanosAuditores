@@ -3,14 +3,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Inicializar EmailJS (después de que el DOM esté listo)
-    if (typeof emailjs !== 'undefined') {
-        emailjs.init("Uj_crn3Kt1Gl6rP");
-        console.log('✅ EmailJS inicializado correctamente');
-    } else {
-        console.warn('⚠️ EmailJS no está disponible');
-    }
-    
     // Initialize all functionality
     initNavigation();
     // initTypingAnimation(); // Removed - using static list instead
@@ -147,13 +139,34 @@ function initContactForm() {
     const contactForm = document.getElementById('contactForm');
     if (!contactForm) return;
     
-    contactForm.addEventListener('submit', handleFormSubmission);
+    // Buscar el formulario por su acción en lugar de por ID
+    const form = document.querySelector('form[action*="formsubmit.co"]');
+    if (!form) return;
     
     // Form validation
-    const inputs = contactForm.querySelectorAll('input, textarea, select');
+    const inputs = form.querySelectorAll('input, textarea, select');
     inputs.forEach(input => {
         input.addEventListener('blur', validateField);
         input.addEventListener('input', clearError);
+    });
+    
+    form.addEventListener('submit', function(e) {
+        // Validar todos los campos antes de enviar
+        let isValid = true;
+        inputs.forEach(input => {
+            if (!validateField({ target: input })) {
+                isValid = false;
+            }
+        });
+        
+        if (!isValid) {
+            e.preventDefault();
+            showNotification('Por favor corrige los errores en el formulario', 'error');
+            return false;
+        }
+        
+        // Si es válido, permite que FormSubmit maneje el envío
+        console.log('✅ Formulario válido, enviando...');
     });
     
     function validateField(e) {
@@ -213,90 +226,7 @@ function initContactForm() {
         field.classList.remove('is-invalid');
         removeErrorMessage(field);
     }
-    
-    function handleFormSubmission(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(contactForm);
-        const formValues = Object.fromEntries(formData);
-        
-        // Validate all fields
-        let isValid = true;
-        inputs.forEach(input => {
-            if (!validateField({ target: input })) {
-                isValid = false;
-            }
-        });
-        
-        if (!isValid) {
-            showNotification('Por favor corrige los errores en el formulario', 'error');
-            return;
-        }
-        
-        // Show loading state
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-        submitButton.textContent = 'Enviando...';
-        submitButton.disabled = true;
-        submitButton.classList.add('loading');
-        
-        // Preparar datos para EmailJS
-        const templateParams = {
-            to_email: "job.llanos@gmail.com",
-            from_name: formValues.nombre,
-            from_email: formValues.email,
-            nombre: formValues.nombre,
-            email: formValues.email,
-            telefono: formValues.telefono,
-            empresa: formValues.empresa,
-            plan: formValues.plan,
-            mensaje: formValues.mensaje || "Sin mensaje"
-        };
-        
-        console.log('📧 Enviando email con parámetros:', templateParams);
-        
-        // Verificar que EmailJS esté disponible
-        if (typeof emailjs === 'undefined') {
-            console.error('❌ EmailJS no está disponible');
-            showNotification('Error: EmailJS no está disponible. Por favor intenta de nuevo.', 'error');
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-            submitButton.classList.remove('loading');
-            return;
-        }
-        
-        // Enviar email con EmailJS
-        emailjs.send("service_qin2chu", "template_cotizacion", templateParams)
-            .then(function(response) {
-                console.log('✅ Email enviado correctamente:', response);
-                
-                // Reset form
-                contactForm.reset();
-                
-                // Reset button
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-                submitButton.classList.remove('loading');
-                
-                // Show success message
-                showNotification('¡Cotización enviada correctamente! Nos contactaremos contigo pronto.', 'success');
-                
-            }, function(error) {
-                console.error('❌ Error al enviar:', error);
-                
-                // Reset button
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-                submitButton.classList.remove('loading');
-                
-                // Show error message
-                let errorMsg = 'Hubo un error al enviar tu cotización. Por favor intenta de nuevo.';
-                if (error.status === 400) {
-                    errorMsg = 'Error de configuración. Contacta al administrador.';
-                }
-                showNotification(errorMsg, 'error');
-            });
-    }
+}
 }
 
 // Notification system

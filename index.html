@@ -267,10 +267,10 @@
                 <div class="col-lg-6">
                     <h2 class="section-title">Beneficios</h2>
                     <h3 class="section-subtitle">¿Por qué elegir trabajar con nosotros?</h3>
-                    <a href="chatbot.html" class="btn btn-success">
+                    <button onclick="toggleChatWidget()" class="btn btn-success" style="cursor: pointer;">
                         <i class="fas fa-comments me-2"></i>
                         Conversemos
-                    </a>
+                    </button>
                 </div>
                 <div class="col-lg-6">
                     <div class="benefits-list">
@@ -500,8 +500,467 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Chat Widget -->
+    <div id="chatWidget" class="chat-widget">
+        <div class="chat-widget-header" onclick="toggleChatWidget()">
+            <div class="chat-widget-title">
+                <i class="fas fa-comments"></i>
+                <span>Chat Llanos Auditores</span>
+            </div>
+            <button class="chat-close-btn" onclick="toggleChatWidget()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="chat-widget-body">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-content">
+                        <strong>¡Hola! 👋</strong><br>
+                        Bienvenido a Llanos Auditores. ¿En qué podemos ayudarte hoy?
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <input 
+                type="text" 
+                id="messageInput" 
+                placeholder="Escribe tu mensaje..." 
+                autocomplete="off"
+                onkeypress="if(event.key === 'Enter') sendMessage()"
+            >
+            <button onclick="sendMessage()" class="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Chat Widget Toggle Button -->
+    <button id="chatToggleBtn" class="chat-toggle-btn" onclick="toggleChatWidget()" title="Abrir chat">
+        <i class="fas fa-comments"></i>
+        <span class="chat-badge">1</span>
+    </button>
+
+    <!-- Custom CSS for Chat Widget -->
+    <style>
+        /* Chat Widget Styles */
+        .chat-toggle-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(30, 64, 175, 0.6);
+        }
+
+        .chat-toggle-btn.hidden {
+            display: none;
+        }
+
+        .chat-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 400px;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 40px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .chat-widget.active {
+            display: flex;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-widget-header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: none;
+        }
+
+        .chat-widget-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .chat-close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.2s ease;
+        }
+
+        .chat-close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .chat-widget-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #fafafa;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 10px;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .bot .message-content {
+            background: #e8f4f8;
+            color: #333;
+            border-left: 4px solid #1e40af;
+        }
+
+        .user .message-content {
+            background: #1e40af;
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+            background: white;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .chat-input-area input:focus {
+            outline: none;
+            border-color: #1e40af;
+            box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.1);
+        }
+
+        .send-btn {
+            border-radius: 25px;
+            padding: 10px 20px;
+            background: #1e40af;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #1a3080;
+            transform: scale(1.05);
+        }
+
+        .quick-replies {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .quick-reply-btn {
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .quick-reply-btn:hover {
+            background: #1e40af;
+            color: white;
+            border-color: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        /* Scrollbar styling */
+        .chat-widget-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-widget-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chat-widget-body::-webkit-scrollbar-thumb {
+            background: #1e40af;
+            border-radius: 4px;
+        }
+
+        .chat-widget-body::-webkit-scrollbar-thumb:hover {
+            background: #1a3080;
+        }
+
+        @media (max-width: 768px) {
+            .chat-widget {
+                width: calc(100% - 20px);
+                height: calc(100vh - 150px);
+                bottom: 80px;
+                right: 10px;
+                left: 10px;
+            }
+
+            .chat-toggle-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 55px;
+                height: 55px;
+                font-size: 20px;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    </style>
+
     <!-- Custom JS -->
     <script src="script.js?v=2.0"></script>
+
+    <!-- Chat Widget JavaScript -->
+    <script>
+        // Base de datos de respuestas del chatbot
+        const botResponses = {
+            'hola': '¡Hola! ¿Cómo estás? ¿Qué servicios te interesan?',
+            'servicios': 'Ofrecemos: 📊 Asesoría Contable, 📋 Tributaria, 💼 Remuneraciones y 🔍 Auditoría. ¿Cuál te interesa?',
+            'contable': 'La Asesoría Contable es perfecta para gestionar tus registros financieros. ¿Te gustaría más información?',
+            'tributaria': 'Con nuestra Asesoría Tributaria optimizamos tus impuestos. ¿Tienes dudas específicas?',
+            'remuneraciones': 'Nos especializamos en gestión de nómina y beneficios. ¿Necesitas ayuda?',
+            'auditoría': 'Realizamos auditorías integrales y especializadas. ¿Cuál es el tamaño de tu empresa?',
+            'precio': 'Tenemos planes desde Plan Emprende. ¿Cuál es el tamaño de tu empresa?',
+            'contacto': '¿Te gustaría agendar una consulta? Presiona el botón abajo para contactarnos por WhatsApp.',
+            'whatsapp': '¡Por supuesto! Te conectaremos por WhatsApp. Un momento...',
+            'default': '¿Puedo ayudarte con algo más? Nuestros especialistas están disponibles. ¿Quieres contactarnos por WhatsApp?'
+        };
+
+        function toggleChatWidget() {
+            const widget = document.getElementById('chatWidget');
+            const toggleBtn = document.getElementById('chatToggleBtn');
+            widget.classList.toggle('active');
+            toggleBtn.classList.toggle('hidden');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Mostrar mensaje del usuario
+            displayMessage(message, 'user');
+            input.value = '';
+
+            // Simular respuesta del bot
+            setTimeout(() => {
+                const response = getBotResponse(message);
+                displayMessage(response, 'bot');
+                
+                // Si menciona contacto o whatsapp, mostrar botones
+                if (response.includes('WhatsApp') || response.includes('whatsapp')) {
+                    setTimeout(() => {
+                        addActionButtons();
+                    }, 500);
+                }
+            }, 800);
+        }
+
+        function displayMessage(text, sender) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            messageDiv.innerHTML = `<div class="message-content">${escapeHtml(text)}</div>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+
+            for (let key in botResponses) {
+                if (lowerMessage.includes(key)) {
+                    return botResponses[key];
+                }
+            }
+
+            return botResponses['default'];
+        }
+
+        function addActionButtons() {
+            const chatMessages = document.getElementById('chatMessages');
+            const buttonDiv = document.createElement('div');
+            buttonDiv.className = 'message bot';
+            buttonDiv.innerHTML = `
+                <div class="message-content">
+                    <div class="quick-replies">
+                        <button class="quick-reply-btn" onclick="openWhatsApp()">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </button>
+                        <button class="quick-reply-btn" onclick="goToContact()">
+                            <i class="fas fa-envelope"></i> Contacto
+                        </button>
+                    </div>
+                </div>
+            `;
+            chatMessages.appendChild(buttonDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function openWhatsApp() {
+            const phoneNumber = '56950939945';
+            const message = 'Hola, me interesa conocer más sobre los servicios de Llanos Auditores';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function goToContact() {
+            window.location.href = '#contacto';
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Mostrar preguntas rápidas iniciales después de un tiempo
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const chatMessages = document.getElementById('chatMessages');
+                const quickDiv = document.createElement('div');
+                quickDiv.className = 'message bot';
+                quickDiv.innerHTML = `
+                    <div class="message-content">
+                        <strong>Temas disponibles:</strong>
+                        <div class="quick-replies" style="margin-top: 10px;">
+                            <button class="quick-reply-btn" onclick="clickQuick('¿Qué servicios ofrecen?')">Servicios</button>
+                            <button class="quick-reply-btn" onclick="clickQuick('¿Cuáles son los precios?')">Precios</button>
+                            <button class="quick-reply-btn" onclick="clickQuick('Quiero contactarlos')">Contacto</button>
+                        </div>
+                    </div>
+                `;
+                chatMessages.appendChild(quickDiv);
+            }, 2000);
+        });
+
+        function clickQuick(text) {
+            document.getElementById('messageInput').value = text;
+            sendMessage();
+        }
+    </script>
 </body>
 
 </html>

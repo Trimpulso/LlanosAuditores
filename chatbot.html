@@ -6,29 +6,93 @@
     <title>Chat - Llanos Auditores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            background: #f5f5f5;
-            margin-top: 80px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .chat-container {
-            max-width: 800px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            height: calc(100vh - 200px);
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f5f5;
+        }
+
+        body {
             display: flex;
             flex-direction: column;
         }
+
+        .header-fixed {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            background: white;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand img {
+            height: 50px;
+        }
+
+        .nav-link {
+            color: #333 !important;
+            margin: 0 15px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #1e40af !important;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 700px;
+            height: 600px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
         .chat-header {
             background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
             color: white;
             padding: 20px;
             text-align: center;
+            border-bottom: none;
         }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .chat-header small {
+            display: block;
+            font-size: 12px;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
         .chat-messages {
             flex: 1;
             overflow-y: auto;
@@ -36,56 +100,101 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            background: #fafafa;
         }
+
         .message {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
+            animation: slideIn 0.3s ease-out;
         }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .message.bot {
             justify-content: flex-start;
         }
+
         .message.user {
             justify-content: flex-end;
         }
+
         .message-content {
             max-width: 70%;
             padding: 12px 15px;
             border-radius: 10px;
             word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
         }
+
         .bot .message-content {
             background: #e8f4f8;
             color: #333;
             border-left: 4px solid #1e40af;
         }
+
         .user .message-content {
             background: #1e40af;
             color: white;
         }
+
         .chat-input-area {
             padding: 15px;
             border-top: 1px solid #eee;
             display: flex;
             gap: 10px;
+            background: white;
         }
+
         .chat-input-area input {
             flex: 1;
             border: 1px solid #ddd;
             border-radius: 25px;
             padding: 10px 15px;
             font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
         }
+
+        .chat-input-area input:focus {
+            outline: none;
+            border-color: #1e40af;
+            box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.1);
+        }
+
         .chat-input-area button {
             border-radius: 25px;
             padding: 10px 20px;
+            background: #1e40af;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
+
+        .chat-input-area button:hover {
+            background: #1a3080;
+            transform: scale(1.05);
+        }
+
         .quick-replies {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
             margin-top: 10px;
         }
+
         .quick-reply-btn {
             background: #f0f0f0;
             border: 1px solid #ddd;
@@ -94,21 +203,60 @@
             cursor: pointer;
             font-size: 13px;
             transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
         }
+
         .quick-reply-btn:hover {
             background: #1e40af;
             color: white;
             border-color: #1e40af;
+            transform: translateY(-2px);
+        }
+
+        /* Scrollbar styling */
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #1e40af;
+            border-radius: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #1a3080;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 10px;
+            }
+
+            .chat-container {
+                height: calc(100vh - 120px);
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+
+            .nav-link {
+                margin: 0 10px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Header/Navigation -->
     <header class="header-fixed">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid px-4">
                 <a class="navbar-brand" href="index.html">
-                    <img src="assets/LOGO LLANOS AUDITORES ACTUALIZADO_02.png" alt="Llanos Auditores" class="logo">
+                    <img src="assets/LOGO LLANOS AUDITORES ACTUALIZADO_02.png" alt="Llanos Auditores" style="height: 40px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
@@ -133,34 +281,37 @@
         </nav>
     </header>
 
-    <!-- Chat Container -->
-    <div class="chat-container">
-        <div class="chat-header">
-            <h3 class="mb-0">
-                <i class="fas fa-comments"></i> Chat - Llanos Auditores
-            </h3>
-            <small>Disponible 24/7</small>
-        </div>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Chat Container -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>
+                    <i class="fas fa-comments"></i> Chat - Llanos Auditores
+                </h3>
+                <small>Disponible 24/7</small>
+            </div>
 
-        <div class="chat-messages" id="chatMessages">
-            <div class="message bot">
-                <div class="message-content">
-                    <strong>¡Hola! 👋</strong><br>
-                    Bienvenido a Llanos Auditores. ¿En qué podemos ayudarte hoy?
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-content">
+                        <strong>¡Hola! 👋</strong><br>
+                        Bienvenido a Llanos Auditores. ¿En qué podemos ayudarte hoy?
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="chat-input-area">
-            <input 
-                type="text" 
-                id="messageInput" 
-                placeholder="Escribe tu mensaje..." 
-                autocomplete="off"
-            >
-            <button class="btn btn-primary" onclick="sendMessage()">
-                <i class="fas fa-paper-plane"></i>
-            </button>
+            <div class="chat-input-area">
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    placeholder="Escribe tu mensaje..." 
+                    autocomplete="off"
+                >
+                <button onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -170,14 +321,15 @@
     <script>
         // Base de datos de respuestas del chatbot
         const botResponses = {
-            'hola': 'Hola! ¿Cómo estás? ¿Qué servicios te interesan?',
-            'servicios': 'Ofrecemos: Asesoría Contable, Tributaria, Remuneraciones y Auditoría. ¿Cuál te interesa?',
+            'hola': '¡Hola! ¿Cómo estás? ¿Qué servicios te interesan?',
+            'servicios': 'Ofrecemos: 📊 Asesoría Contable, 📋 Tributaria, 💼 Remuneraciones y 🔍 Auditoría. ¿Cuál te interesa?',
             'contable': 'La Asesoría Contable es perfecta para gestionar tus registros financieros. ¿Te gustaría más información?',
             'tributaria': 'Con nuestra Asesoría Tributaria optimizamos tus impuestos. ¿Tienes dudas específicas?',
             'remuneraciones': 'Nos especializamos en gestión de nómina y beneficios. ¿Necesitas ayuda?',
+            'auditoría': 'Realizamos auditorías integrales y especializadas. ¿Cuál es el tamaño de tu empresa?',
             'precio': 'Tenemos planes desde Plan Emprende. ¿Cuál es el tamaño de tu empresa?',
             'contacto': '¿Te gustaría agendar una consulta? Presiona el botón abajo para contactarnos por WhatsApp.',
-            'whatsapp': 'Por supuesto! Te conectaremos por WhatsApp. Un momento...',
+            'whatsapp': '¡Por supuesto! Te conectaremos por WhatsApp. Un momento...',
             'default': '¿Puedo ayudarte con algo más? Nuestros especialistas están disponibles. ¿Quieres contactarnos por WhatsApp?'
         };
 
@@ -193,8 +345,15 @@
 
             // Simular respuesta del bot
             setTimeout(() => {
-                const response = getbotResponse(message);
+                const response = getBotResponse(message);
                 displayMessage(response, 'bot');
+                
+                // Si menciona contacto o whatsapp, mostrar botones
+                if (response.includes('WhatsApp') || response.includes('whatsapp')) {
+                    setTimeout(() => {
+                        addActionButtons();
+                    }, 500);
+                }
             }, 800);
         }
 
@@ -205,16 +364,9 @@
             messageDiv.innerHTML = `<div class="message-content">${escapeHtml(text)}</div>`;
             chatMessages.appendChild(messageDiv);
             chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // Si es respuesta del bot, mostrar botones de acción
-            if (sender === 'bot' && text.includes('WhatsApp')) {
-                setTimeout(() => {
-                    addActionButtons();
-                }, 500);
-            }
         }
 
-        function getbotResponse(message) {
+        function getBotResponse(message) {
             const lowerMessage = message.toLowerCase();
 
             for (let key in botResponses) {
@@ -247,7 +399,7 @@
         }
 
         function openWhatsApp() {
-            const phoneNumber = '56950939945'; // Número configurado
+            const phoneNumber = '56950939945';
             const message = 'Hola, me interesa conocer más sobre los servicios de Llanos Auditores';
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
@@ -270,7 +422,7 @@
             }
         });
 
-        // Mostrar preguntas rápidas iniciales
+        // Mostrar preguntas rápidas iniciales después de un tiempo
         window.addEventListener('load', function() {
             setTimeout(() => {
                 const chatMessages = document.getElementById('chatMessages');
@@ -287,7 +439,7 @@
                     </div>
                 `;
                 chatMessages.appendChild(quickDiv);
-            }, 1000);
+            }, 1500);
         });
 
         function clickQuick(text) {

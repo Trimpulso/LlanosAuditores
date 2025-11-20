@@ -136,97 +136,60 @@ function initScrollAnimations() {
 
 // Contact form functionality
 function initContactForm() {
-    const contactForm = document.getElementById('contactForm');
-    if (!contactForm) return;
-    
-    // Buscar el formulario por su acción en lugar de por ID
+    // FormSubmit.co maneja todo automáticamente
+    // Solo validamos los campos antes de enviar
     const form = document.querySelector('form[action*="formsubmit.co"]');
     if (!form) return;
     
-    // Form validation
-    const inputs = form.querySelectorAll('input, textarea, select');
-    inputs.forEach(input => {
-        input.addEventListener('blur', validateField);
-        input.addEventListener('input', clearError);
-    });
+    const inputs = form.querySelectorAll('input[required], textarea[required]');
     
     form.addEventListener('submit', function(e) {
-        // Validar todos los campos antes de enviar
         let isValid = true;
+        
         inputs.forEach(input => {
-            if (!validateField({ target: input })) {
+            if (!input.value.trim()) {
                 isValid = false;
+                input.classList.add('is-invalid');
+                
+                // Mostrar error
+                let errorDiv = input.parentNode.querySelector('.invalid-feedback');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'invalid-feedback';
+                    errorDiv.textContent = 'Este campo es obligatorio';
+                    input.parentNode.appendChild(errorDiv);
+                }
+            } else {
+                input.classList.remove('is-invalid');
+                let errorDiv = input.parentNode.querySelector('.invalid-feedback');
+                if (errorDiv) errorDiv.remove();
             }
         });
+        
+        // Validar email
+        const emailInput = form.querySelector('input[type="email"]');
+        if (emailInput && emailInput.value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value)) {
+                isValid = false;
+                emailInput.classList.add('is-invalid');
+                let errorDiv = emailInput.parentNode.querySelector('.invalid-feedback');
+                if (!errorDiv) {
+                    errorDiv = document.createElement('div');
+                    errorDiv.className = 'invalid-feedback';
+                    errorDiv.textContent = 'Email inválido';
+                    emailInput.parentNode.appendChild(errorDiv);
+                }
+            }
+        }
         
         if (!isValid) {
             e.preventDefault();
             showNotification('Por favor corrige los errores en el formulario', 'error');
-            return false;
+        } else {
+            console.log('✅ Formulario válido, enviando...');
         }
-        
-        // Si es válido, permite que FormSubmit maneje el envío
-        console.log('✅ Formulario válido, enviando...');
     });
-    
-    function validateField(e) {
-        const field = e.target;
-        const value = field.value.trim();
-        
-        // Remove existing error classes
-        field.classList.remove('is-invalid');
-        removeErrorMessage(field);
-        
-        // Validate required fields
-        if (field.hasAttribute('required') && !value) {
-            showFieldError(field, 'Este campo es obligatorio');
-            return false;
-        }
-        
-        // Validate email
-        if (field.type === 'email' && value) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(value)) {
-                showFieldError(field, 'Ingresa un email válido');
-                return false;
-            }
-        }
-        
-        // Validate phone
-        if (field.type === 'tel' && value) {
-            const phoneRegex = /^[+]?[\d\s\-\(\)]+$/;
-            if (!phoneRegex.test(value) || value.length < 8) {
-                showFieldError(field, 'Ingresa un teléfono válido');
-                return false;
-            }
-        }
-        
-        return true;
-    }
-    
-    function showFieldError(field, message) {
-        field.classList.add('is-invalid');
-        
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'invalid-feedback';
-        errorDiv.textContent = message;
-        
-        field.parentNode.appendChild(errorDiv);
-    }
-    
-    function removeErrorMessage(field) {
-        const errorDiv = field.parentNode.querySelector('.invalid-feedback');
-        if (errorDiv) {
-            errorDiv.remove();
-        }
-    }
-    
-    function clearError(e) {
-        const field = e.target;
-        field.classList.remove('is-invalid');
-        removeErrorMessage(field);
-    }
-}
 }
 
 // Notification system
